@@ -7,23 +7,37 @@
   <title></title>
 </head>
 <body>
-  <div class="sidebar">
-    <div class="date"></div>
-    <div class="clock"></div>
-    <div class="weather"></div>
-    <div class="tune"></div>
-    <div class="video"></div>
-  </div>
+  <div class="background"></div>
   <div class="main">
-    <div class="backgroundLightness">
-      <div>Background lightness:</div>
-      <input type="range" min="0" max="100" value="20">
+    <div class="container brightnessContainer">
+      <div>Background brightness:</div>
+      <input type="range" min="0" max="100">
     </div>
-    <div class="todolist"></div>
-    <div class="keyboard"></div>
-    <div class="doodle"></div>
-    <div class="foodnews"></div>
+    <div class="container toDoListContainer">
+      <ul class="toDoList">
+      </ul>
+      <form class="container addItemContainer">
+        <input type="text">
+        <button class="addItemButton">Add Item</button>
+      </form>
+    </div>
+    <div class="container keyboardContainer">
+
+    </div>
+    <div class="container doodleContainer">
+
+    </div>
+    <div class="container foodNewsContainer">
+
+    </div>
   </div>
+  <div class="sidebar">
+      <div class="date"></div>
+      <div class="clock"></div>
+      <div class="weather"></div>
+      <div class="tune"></div>
+      <div class="video"></div>
+    </div>
   <script src="script.js"></script>
 </body>
 </html>
