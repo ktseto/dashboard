@@ -6,13 +6,12 @@ body {
   margin: 0;
 }
 
-.background {
+.main {
   position: absolute;
   z-index: -1;
-  height: 100vh;
   width: 100vw;
   background: url(media/ales-krivec-20582-unsplash.jpg);
-  background-size: cover;
+  background-size: contain;
   background-repeat: repeat-y;
   filter: brightness(var(--brightness));
 }
@@ -34,11 +33,21 @@ body {
 .doodleContainer {
   flex-direction: column;
   align-items: center;
-  padding-top: 50px;
+  padding-top: 2000px;
 }
 
 canvas {
   border: 5px solid black;
   background: white;
   opacity: .7;
+}
+
+.sidebar {
+  position: fixed;
+  z-index: 2;
+  width: 200px;
+  height: 100vh;
+  background: goldenrod;
+  border: 5px solid white;
+  border-radius: 10px;
 }

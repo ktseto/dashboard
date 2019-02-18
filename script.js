@@ -73,4 +73,6 @@ const clearCanvas = document.querySelector('.clearCanvas');
 clearCanvas.addEventListener('click', () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 });
-// 
+
+// Sidebar
+let showSidebar = true;
