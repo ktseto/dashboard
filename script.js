@@ -76,3 +76,12 @@ clearCanvas.addEventListener('click', () => {
 
 // Sidebar
 let showSidebar = true;
+let sidebar = document.querySelector('.sidebar');
+sidebar.addEventListener('click', () => {
+  showSidebar = !showSidebar;
+  if (showSidebar) {
+    sidebar.classList.add('active');
+  } else {
+    sidebar.classList.remove('active');
+  }
+});

@@ -1,5 +1,6 @@
 :root {
   --brightness: 100%;
+  --opacity: .7;
 }
 
 body {
@@ -39,7 +40,7 @@ body {
 canvas {
   border: 5px solid black;
   background: white;
-  opacity: .7;
+  opacity: var(--opacity);
 }
 
 .sidebar {
@@ -47,7 +48,15 @@ canvas {
   z-index: 2;
   width: 200px;
   height: 100vh;
-  background: goldenrod;
+  background: PapayaWhip;
+  opacity: var(--opacity);
   border: 5px solid white;
   border-radius: 10px;
+  transform: translateX(-90%);
+  transition: all .3s;
+  transition-timing-function: cubic-bezier(.6, -.2, .6, -.2);
+}
+
+.sidebar.active {
+  transform: translateX(0);
 }
