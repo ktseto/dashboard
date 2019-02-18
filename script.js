@@ -74,18 +74,6 @@ clearCanvas.addEventListener('click', () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 });
 
-// Sidebar
-let showSidebar = true;
-let sidebar = document.querySelector('.sidebar');
-sidebar.addEventListener('click', () => {
-  showSidebar = !showSidebar;
-  if (showSidebar) {
-    sidebar.classList.add('active');
-  } else {
-    sidebar.classList.remove('active');
-  }
-});
-
 // Keyboard
 const checkbox = document.querySelector('.enableContainer input');
 let keyboardEnabled = false;
@@ -112,6 +100,18 @@ audioKeys.forEach((kbd) => {
 });
 
 // Sidebar
+let showSidebar = true;
+let sidebar = document.querySelector('.sidebar');
+sidebar.addEventListener('click', (e) => {
+  if (!e.target.matches('.sidebar')) return;
+
+  showSidebar = !showSidebar;
+  if (showSidebar) {
+    sidebar.classList.add('active');
+  } else {
+    sidebar.classList.remove('active');
+  }
+});
 
 // Sidebar-date
 const months = {
@@ -147,3 +147,70 @@ function updateTime() {
 
 setInterval(updateTime, 1000);
 updateTime();
+
+// Sidebar-weather
+const weatherSearchBar = document.querySelector('.weatherSearchBar');
+const stationsList = document.querySelector('.stationsList');
+const weather = document.querySelector('.weather');
+const city = document.querySelector('.city');
+const weatherDescription = document.querySelector('.weatherDescription');
+const temperature = document.querySelector('.temperature');
+
+let stations = [];
+const stationIdentifier = localStorage.getItem('stationIdentifier') || '';
+fetch('https://api.weather.gov/stations')
+  .then(res => res.json())
+  .then((data) => {
+    stations = data.features.map(({ properties: { name, stationIdentifier }}) => ({
+      name,
+      stationIdentifier,
+    }))
+    .sort((s1, s2) => {
+      if (s1.name < s2.name) return -1;
+      if (s1.name > s2.name) return 1;
+      return 0;
+    });
+
+    if (stationIdentifier) fetchWeather(stationIdentifier);
+  })
+  .catch(err => console.log('Error fetching weather stations.'));
+
+function fetchWeather(stationIdentifier) {
+  fetch(`https://api.weather.gov/stations/${stationIdentifier}/observations/latest`)
+    .then(res => res.json())
+    .then(({ properties: { textDescription, temperature: { value } }}) => {
+      city.textContent = stations
+        .filter(s => s.stationIdentifier === stationIdentifier)[0]
+        .name
+        .split(',')[0];
+      temperature.textContent = `${Math.round(value)} C`;
+      weatherDescription.textContent = textDescription;
+
+      stationsList.innerHTML = '';
+      weatherSearchBar.value = '';
+      localStorage.setItem('stationIdentifier', stationIdentifier);
+    })
+    .catch(err => console.log('Error fetching weather.'));
+}
+
+weatherSearchBar.addEventListener('keyup', () => {
+  const text = weatherSearchBar.value;
+  const regex = new RegExp(text, 'gi');
+  const innerHTML = stations
+    .filter(s => s.name.match(regex))
+    .map(s => `
+      <li data-stationIdentifier="${s.stationIdentifier}" class="station">
+        ${s.name}
+      </li>`)
+    .join('');
+  stationsList.innerHTML = innerHTML;
+});
+
+weather.addEventListener('click', (e) => {
+  if (!e.target.matches('li')) return;
+
+  const stationIdentifier = e.target.dataset.stationidentifier;
+  const cityName = e.target.textContent.trim().split(',')[0];
+
+  fetchWeather(stationIdentifier);
+})

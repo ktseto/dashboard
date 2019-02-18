@@ -94,7 +94,7 @@ kbd.playing {
   transition-timing-function: cubic-bezier(.6, -.2, .6, -.2);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
 }
 
@@ -118,4 +118,21 @@ kbd.playing {
   top: 50%;
   transform: rotate(90deg);
   transform-origin: 100%;
+}
+
+.weather {
+  max-height: 30%;
+  max-width: 150px;
+  overflow: auto;
+}
+
+.currentWeather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stationsList {
+  font-size: 14px;
 }
