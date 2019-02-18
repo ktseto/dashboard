@@ -110,3 +110,40 @@ const audioKeys = document.querySelectorAll('kbd');
 audioKeys.forEach((kbd) => {
   kbd.addEventListener('transitionend', () => kbd.classList.remove('playing'));
 });
+
+// Sidebar
+
+// Sidebar-date
+const months = {
+  1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June',
+  7: 'July', 8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December',
+};
+
+const formatDate = (date) => {
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${months[month]} ${day}`;
+};
+
+const date = document.querySelector('.date');
+date.textContent = formatDate(new Date());
+
+// Sidebar-clock
+const hourHand = document.querySelector('.hourHand');
+const minuteHand = document.querySelector('.minuteHand');
+const secondHand = document.querySelector('.secondHand');
+
+function updateTime() {
+  const now = new Date();
+
+  const hourDegree = now.getHours() / 12 * 360 + 90;
+  const minuteDegree = now.getMinutes() / 60 * 360 + 90;
+  const secondDegree = now.getSeconds() / 60 * 360 + 90;
+
+  hourHand.style.transform = `rotate(${hourDegree}deg)`;
+  minuteHand.style.transform = `rotate(${minuteDegree}deg)`;
+  secondHand.style.transform = `rotate(${secondDegree}deg)`;
+}
+
+setInterval(updateTime, 1000);
+updateTime();
