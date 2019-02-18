@@ -44,7 +44,7 @@ toDoList.addEventListener('click', (e) => {
 // Doodle component
 const canvas = document.querySelector('canvas');
 canvas.height = window.innerHeight * 0.3;
-canvas.width = window.innerWidth * 0.5;
+canvas.width = window.innerWidth * 0.4;
 
 const ctx = canvas.getContext('2d');
 let strokeHue = 0;
@@ -84,4 +84,29 @@ sidebar.addEventListener('click', () => {
   } else {
     sidebar.classList.remove('active');
   }
+});
+
+// Keyboard
+const checkbox = document.querySelector('.enableContainer input');
+let keyboardEnabled = false;
+checkbox.addEventListener('click', () => {
+  keyboardEnabled = checkbox.checked;
+});
+
+window.addEventListener('keyup', (e) => {
+  const key = e.key.toUpperCase();
+  if (!['A', 'S', 'D', 'F', 'G', 'H', 'J'].includes(key)) return;
+  if (!keyboardEnabled) return;
+
+  const audio = document.querySelector(`audio[data-key="${key}"]`);
+  audio.currentTime = 0;
+  audio.play();
+
+  const kbd = document.querySelector(`kbd[data-key="${key}"]`);
+  kbd.classList.add('playing');
+});
+
+const audioKeys = document.querySelectorAll('kbd');
+audioKeys.forEach((kbd) => {
+  kbd.addEventListener('transitionend', () => kbd.classList.remove('playing'));
 });
