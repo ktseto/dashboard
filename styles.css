@@ -6,6 +6,7 @@
 body {
   margin: 0;
   font-family: Georgia, 'Times New Roman', Times, serif;
+  box-sizing: border-box;
 }
 
 .main {
@@ -13,7 +14,7 @@ body {
   z-index: -1;
   width: 100vw;
   min-height: 100vh;
-  background: url(media/ales-krivec-20582-unsplash.jpg);
+  background: url(media/ales-krivec-20582-unsplash-lowres.jpg);
   background-size: cover;
   background-repeat: repeat-y;
   filter: brightness(var(--brightness));
@@ -25,8 +26,10 @@ body {
 }
 
 .brightnessContainer {
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
   padding-right: 20px;
+  font-size: 12px;
 }
 
 .toDoListContainer {
@@ -102,12 +105,17 @@ kbd.playing {
   transform: translateX(0);
 }
 
+.date {
+  padding: 20px 0;
+}
+
 .clock {
   height: 100px;
   width: 100px;
   border-radius: 50%;
   border: 5px solid black;
   position: relative;
+  margin: 20px 0;
 }
 
 .hand {
@@ -118,6 +126,40 @@ kbd.playing {
   top: 50%;
   transform: rotate(90deg);
   transform-origin: 100%;
+}
+
+.tune {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progressContainer {
+  width: 100px;;
+  height: 5px;
+  background: black;
+  border: 1px solid black;
+  display: flex;
+}
+
+.playButton {
+  padding-right: 5px;
+}
+
+.progress {
+  background: yellow;
+  flex-basis: 0;
+}
+
+.credit {
+  font-size: 10px;
 }
 
 .weather {
@@ -131,6 +173,11 @@ kbd.playing {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  padding: 20px 0;
+}
+
+.weatherSearchBar {
+  border: 1px solid black;
 }
 
 .stationsList {

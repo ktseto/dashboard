@@ -214,3 +214,31 @@ weather.addEventListener('click', (e) => {
 
   fetchWeather(stationIdentifier);
 })
+
+// Sidebar-tune
+const tunePlayButton = document.querySelector('.tune .playButton');
+const tuneProgress = document.querySelector('.tune .progress');
+const tuneProgressContainer = document.querySelector('.tune .progressContainer');
+const audio = document.querySelector('.tune .audio');
+let tuneIsPlaying = false;
+
+tunePlayButton.addEventListener('click', () => {
+  tuneIsPlaying = !tuneIsPlaying;
+  tunePlayButton.textContent = tuneIsPlaying ? '❚ ❚' : '►';
+  
+  if (tuneIsPlaying) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
+});
+
+audio.addEventListener('timeupdate', () => {
+  const elapsed = (audio.currentTime / audio.duration) * 100;
+  tuneProgress.style.flexBasis = `${elapsed}%`;
+});
+
+tuneProgressContainer.addEventListener('click', (e) => {
+  const newTime = e.offsetX / tuneProgressContainer.offsetWidth * audio.duration;
+  audio.currentTime = newTime;
+});
