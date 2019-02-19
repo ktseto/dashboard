@@ -166,7 +166,7 @@ const weatherDescription = document.querySelector('.weatherDescription');
 const temperature = document.querySelector('.temperature');
 
 let stations = [];
-const stationIdentifier = localStorage.getItem('stationIdentifier') || '';
+const stationIdentifier = localStorage.getItem('stationIdentifier') || 'KSFO';
 fetch('https://api.weather.gov/stations')
   .then(res => res.json())
   .then((data) => {
