@@ -13,8 +13,10 @@ const toDoList = document.querySelector('.toDoList');
 
 const populateList = () => {
   const HTMLtext = listItems.map((item, i) => `
-    <li>
-      <input type="checkbox" data-index=${i} ${item.completed ? 'checked' : ''}>${item.text}
+    <li class="toDoItem">
+      <input type="checkbox" data-index=${i} ${item.completed ? 'checked' : ''}>
+      <div class="listText" data-index=${i}>${item.text}</div>
+      <button class="removeButton" data-index=${i}>X</button>
     </li>
   `).join('');
   toDoList.innerHTML = HTMLtext;
@@ -33,12 +35,19 @@ addItemForm.addEventListener('submit', function(e) {
   localStorage.setItem('todolist', JSON.stringify(listItems));
   this.reset();
 });
-toDoList.addEventListener('click', (e) => {
-  if (!e.target.matches('input')) return;
 
+toDoList.addEventListener('click', (e) => {
   const index = e.target.dataset.index;
-  listItems[index].completed = !listItems[index].completed;
-  localStorage.setItem('todolist', JSON.stringify(listItems));
+
+  if (e.target.matches('input')) {
+    listItems[index].completed = !listItems[index].completed;
+    localStorage.setItem('todolist', JSON.stringify(listItems));
+  }
+  if (e.target.matches('button')) {
+    listItems.splice(index, 1);
+    populateList();
+    localStorage.setItem('todolist', JSON.stringify(listItems));
+  }
 });
 
 // Doodle component
